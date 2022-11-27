@@ -129,7 +129,7 @@ class UserController extends Controller
 
             //simpan foto ke database (urlnya)
             $user = Auth::user();
-            $user->profile_photo_url = $file;
+            $user->profile_photo_path = $file;
             $user->update();
             return ResponseFormatter::success([$file],'File succesfully uploaded');
         }
