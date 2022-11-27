@@ -13,17 +13,21 @@ class Food extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name', 'description','ingredients','price','rate','types'  ,
+        'name', 'description','ingredients','price','rate','types',
         'picturePath'   
     ];
 
-    public function getCreatedAtAttribute($value){
-        return Carbon::parse($value)->timestamp;
+    public function getCreatedAtAttribute($created_at)
+    {
+        return Carbon::parse($created_at)
+            ->getPreciseTimestamp(3);
     }
-
-    public function getUpdatedAtAttribute($value){
-        return Carbon::parse($value)->timestamp;
+    public function getUpdatedAtAttribute($updated_at)
+    {
+        return Carbon::parse($updated_at)
+            ->getPreciseTimestamp(3);
     }
+    
     public function toArray(){
         $toArray = parent::toArray();
         $toArray['picturePath']= $this->picturePath;
@@ -31,7 +35,7 @@ class Food extends Model
     }
 
     public function getPicturePathAttribute(){
-        return url('') . Storage::url($this->attributes['picturePath']);
+        return config('app.url') . Storage::url($this->attributes['picturePath']);
     }
 
 }
