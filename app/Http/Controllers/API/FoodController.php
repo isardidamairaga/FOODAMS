@@ -38,7 +38,7 @@ class FoodController extends Controller
             }
         }
 
-        $food =Food::querry();
+        $food =Food::query();
         if($name){
             $food->where('name','like','%'. $name . '%');
         }
