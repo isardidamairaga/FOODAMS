@@ -38,7 +38,7 @@ class TransactionController extends Controller
         }
 
         $transaction =Transaction::with(['food','users'])
-                    ->where('user_id',Auth::user()->id);
+                    ->where('user_id',Auth::users()->id);
         if($food_id){
            $transaction->where('food_id',$food_id);
         }
@@ -96,8 +96,8 @@ class TransactionController extends Controller
                 'gross_amount'=>(int) $transaction->total,
             ],
             'customer_details'=>[
-                'first_name'=> $transaction->user->name,
-                'email'=> $transaction->user->email,
+                'first_name'=> $transaction->users->name,
+                'email'=> $transaction->users->email,
 
             ],
             'enabled_payments'=>['gopay','bank_transfer'],
