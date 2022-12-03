@@ -38,7 +38,7 @@ class TransactionController extends Controller
         }
 
         $transaction =Transaction::with(['food','users'])
-                    ->where('user_id',Auth::users()->id);
+                    ->where('user_id',Auth::user()->id);
         if($food_id){
            $transaction->where('food_id',$food_id);
         }
