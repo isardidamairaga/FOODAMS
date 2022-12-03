@@ -22,7 +22,7 @@ class TransactionController extends Controller
 
        
         if($id){
-            $transaction = Transaction::with(['food','users'])->find($id);
+            $transaction = Transaction::with(['food','user'])->find($id);
             if($transaction){
                 return ResponseFormatter::success(
                     $transaction,
@@ -37,7 +37,7 @@ class TransactionController extends Controller
             }
         }
 
-        $transaction =Transaction::with(['food','users'])
+        $transaction =Transaction::with(['food','user'])
                     ->where('user_id',Auth::user()->id);
         if($food_id){
            $transaction->where('food_id',$food_id);
@@ -86,7 +86,7 @@ class TransactionController extends Controller
         Config::$is3ds= config('services.midtrans.is3ds');
 
         //Pnggil transaksi yang telah dibuat
-        $transaction = Transaction::with(['food','users'])->find($transaction->id);
+        $transaction = Transaction::with(['food','user'])->find($transaction->id);
 
 
         //Membuat transaksi midtrans
@@ -96,8 +96,8 @@ class TransactionController extends Controller
                 'gross_amount'=>(int) $transaction->total,
             ],
             'customer_details'=>[
-                'first_name'=> $transaction->users->name,
-                'email'=> $transaction->users->email,
+                'first_name'=> $transaction->user->name,
+                'email'=> $transaction->user->email,
 
             ],
             'enabled_payments'=>['gopay','bank_transfer'],
