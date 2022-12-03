@@ -12,7 +12,7 @@ class Transaction extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'food_id','user-id','quantity','total','status','payment_url'
+        'food_id','user_id','quantity','total','status','payment_url'
     ];
 
     public function food(){
